@@ -1,6 +1,7 @@
 from flask import Flask
-from flask import jsonify
+from flask import jsonify, request
 from flask_sqlalchemy import SQLAlchemy
+import datetime
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///C:\\Users\\intern.tsd\\Desktop\\FormBackend\\Users.db'
@@ -11,12 +12,17 @@ class User(db.Model):
     name = db.Column(db.String(30), nullable=False)
     email = db.Column(db.String(100), nullable=False)
     password = db.Column(db.String(100), nullable=False)
-    date = db.Column(db.DateTime(), nullable=False)
+    date = db.Column(db.Date(), nullable=False)
 
     def __repr__(self):
         return '<User %r>' % self.name
 
-@app.route("/")
+    def get_age():
+        currentDate = datetime.datetime.now()
+        age = currentDate.year - self.date.year
+        return age
+
+@app.route("/", methods=['GET'])
 def listAllUsers():
     users = User.query.all()
     list_of_users = []
@@ -30,3 +36,23 @@ def listAllUsers():
         }
         list_of_users.append(user_dict)
     return jsonify(list_of_users)
+
+@app.route("/", methods=['POST'])
+def post_users():
+    user_data = request.get_json()
+
+    name = user_data['name']
+    email = user_data['email']
+    password = user_data['password']
+    date = datetime.datetime.strptime(user_data['dateOfBirth'], "%Y-%m-%d")
+
+    user = User(name=name, email=email, password=password, date=date)
+    db.session.add(user)
+    db.session.commit()
+    return jsonify({
+            'id': user.id,
+            'name': user.name,
+            'email': user.email,
+            'password': user.password,
+            'date': user.date.isoformat()
+        })
