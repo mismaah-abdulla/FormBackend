@@ -1,5 +1,5 @@
 from flask import Flask
-from flask import jsonify, request
+from flask import jsonify, request, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
 import datetime
 
@@ -22,22 +22,22 @@ class User(db.Model):
         age = currentDate.year - self.date.year
         return age
 
-@app.route("/", methods=['GET'])
+@app.route("/api", methods=['GET'])
 def listAllUsers():
     users = User.query.all()
     list_of_users = []
     for user in users:
-        user_dict = {
+        user_details = {
             'id': user.id,
             'name': user.name,
             'email': user.email,
             'password': user.password,
             'date': user.date.isoformat()
         }
-        list_of_users.append(user_dict)
+        list_of_users.append(user_details)
     return jsonify(list_of_users)
 
-@app.route("/", methods=['POST'])
+@app.route("/api", methods=['POST'])
 def post_users():
     user_data = request.get_json()
 
@@ -56,3 +56,11 @@ def post_users():
             'password': user.password,
             'date': user.date.isoformat()
         })
+
+@app.route("/", methods=['GET'])
+def display_form():
+    return send_from_directory('static', 'Form.html')
+
+@app.route("/<page>", methods=['GET'])
+def load_scripts(page):
+    return send_from_directory('static', page)
