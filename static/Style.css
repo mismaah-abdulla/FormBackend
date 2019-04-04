@@ -1,0 +1,34 @@
+html, body {
+    width: 100%;
+}
+
+body {
+    background-color: #f4f4f4;
+    line-height: 1.5em;
+}
+table {
+    border: 1px solid black;
+    border-collapse: collapse;
+    table-layout: fixed;
+    width: 70%;
+    margin: 0 auto;
+}
+th, td {
+    border: 1px solid black;
+}
+.errorMessage {
+    color:red;
+}
+button {
+    text-align: right;
+}
+.container {
+    width: 300px;
+    margin: auto;
+    border-radius: 15px;
+    padding: 2px 30px 1px 30px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    background-color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)
+}

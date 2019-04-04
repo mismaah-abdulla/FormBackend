@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Form</title>
+    <META http-equiv="Content-Type" content="text/html; charset= ISO-8859-1">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+    <script src="User.js"></script>
+    <script src="Form.js"></script>
+    <script src="UserValidator.js"></script>
+    <link rel="stylesheet" href="Style.css">
+</head>
+<body>
+<div class="container">
+    <h1 id="heading">Form</h1>
+        <div>Name 
+            <input  id="name" type="text" value=""> </div><br>
+        <div>Email 
+            <input id="email" type="text" value=""> </div><br>
+        <div>Password
+            <input id="password" type="password" value=""> <button onmousedown="showPassword()" onmouseup="hidePassword()">Show</button></div><br> 
+        <div>Date of birth 
+            <input id="birthDate" type="date" value=""></div><br>
+        <input id="rowNumberHidden" type="hidden">
+        <button id="actionButtons" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" onclick="submitOrUpdateForm()">Submit</button>
+        <button style="display: none" id="updateButtons" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" onclick="cancelUpdateForm()">Cancel</button><br>
+        <p class="errorMessage" id="error">&nbsp;</p>
+</div>
+<div class="table">
+    <table >
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th style="width: 250px;">Password</th>
+                <th style="width: 100px;">Age</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="tableRows">
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
