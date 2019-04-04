@@ -1,4 +1,12 @@
 var users = [];
+getUserData();
+setTimeout(() => {
+    for(var user in users){
+        getRow(user);
+    }
+}, 1000);
+
+
 function submitOrUpdateForm(){
     var name = document.getElementById("name").value;
     var email = document.getElementById("email").value;
@@ -41,6 +49,19 @@ function postUserData(user){
             'password': user.password,
             'dateOfBirth': user.dateOfBirth
         })
+    })
+}
+
+function getUserData(){
+    fetch("http://127.0.0.1:5000/api")
+    .then(response => {
+        return response.json()
+    })
+    .then(data => {
+        users = data
+    })
+    .catch(err => {
+        console.log('ERROR')
     })
 }
 
