@@ -1,11 +1,5 @@
 var users = [];
 getUserData();
-setTimeout(() => {
-    for(var user in users){
-        getRow(user);
-    }
-}, 1000);
-
 
 function submitOrUpdateForm(){
     var name = document.getElementById("name").value;
@@ -55,14 +49,28 @@ function postUserData(user){
 function getUserData(){
     fetch("http://127.0.0.1:5000/api")
     .then(response => {
+        console.log(response)
         return response.json()
     })
     .then(data => {
-        users = data
+        console.log(data, '1');
+        return getUsersFromApi(data);
     })
-    .catch(err => {
-        console.log('ERROR')
+    .catch(error => {
+        console.log(error)
     })
+}
+
+function getUsersFromApi(data){
+    console.log(data, '2');
+    users = data
+    console.log(users, '3')
+    for(var user of users){
+        var inputDate = new Date(user.date);
+        let userObj = new User (user.name, user.email, user.password, inputDate)
+        console.log(userObj);
+        document.getElementById("tableRows").innerHTML += getRow(userObj);
+    }
 }
 
 function doValidation(name, email, password, date){
